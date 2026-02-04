@@ -55,8 +55,24 @@ It assumes familiarity with Python, REST APIs, and basic security concepts. Prio
 ## Structure
 
 ```
-patterns/              # Design patterns for different tool types
-example-domains/       # Complete examples in specific domains
-anti-patterns/         # What NOT to do
-security/              # Scope design and audit logging guidance
+patterns/                          # Design patterns for different tool types
+├── read-only-tools/README.md      # Safest tools; no side effects
+├── write-tools/README.md         # Create/update with idempotency and validation
+├── destructive-tools/README.md   # Delete/terminate; confirmation and dry-run
+├── idempotent-tools/README.md    # Safe retries; keys, set semantics, "already gone"
+└── confirmation-required-tools/README.md   # Human-in-the-loop; tokens and confirm flags
+
+example-domains/                  # Complete examples in specific domains
+├── filesystem/README.md          # List, read, write, delete under allowed roots
+├── database/README.md            # Query, insert, truncate with allowlisted tables
+├── trading-sim/README.md         # Positions, orders, liquidation (simulation only)
+└── cloud-resources/README.md    # List, create, terminate instances (no real APIs)
+
+anti-patterns/                    # What NOT to do
+├── unsafe-tools.md              # Overloaded tools, free-form commands, no validation
+└── why-not-let-agents-loop.md   # Unbounded retries and iteration
+
+security/
+├── scope-design.md              # Read / write / destructive; mapping and enforcement
+└── audit-logging.md             # What to log, where, sanitization, retention
 ```
